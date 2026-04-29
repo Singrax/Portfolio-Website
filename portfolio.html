@@ -1,0 +1,412 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfólio de Victor Sales Marques, estudante de Programação de Jogos focado em Unity, C#, Game Design e UI.">
+    <title>Portfólio | Victor Sales Marques</title>
+    <style>
+        :root {
+            --primary: #6200ee;
+            --secondary: #03dac6;
+            --background: #121212;
+            --surface: #1e1e1e;
+            --text: #ffffff;
+            --text-secondary: #b0b0b0;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #121212 0%, #2c0062 100%);
+            padding: 20px;
+        }
+
+        .lang-switch {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 20;
+            display: flex;
+            gap: 6px;
+            padding: 6px;
+            background: rgba(18, 18, 18, 0.72);
+            border: 1px solid #333;
+            border-radius: 999px;
+            backdrop-filter: blur(8px);
+        }
+
+        .lang-btn {
+            width: 34px;
+            height: 30px;
+            border: 1px solid transparent;
+            border-radius: 999px;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 1;
+            opacity: 0.58;
+            transition: opacity 0.2s, border-color 0.2s, background 0.2s, color 0.2s;
+        }
+
+        .lang-btn.active {
+            opacity: 1;
+            border-color: var(--secondary);
+            background: rgba(3, 218, 198, 0.14);
+            color: var(--secondary);
+        }
+
+        h1 { font-size: 3.5rem; margin-bottom: 10px; color: var(--secondary); }
+        p.subtitle { font-size: 1.5rem; color: var(--text-secondary); }
+
+        .container { max-width: 1160px; margin: 0 auto; padding: 40px 20px; }
+
+        section { margin-bottom: 60px; }
+
+        h2 { border-left: 5px solid var(--primary); padding-left: 15px; margin-bottom: 30px; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 540px), 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s;
+            border: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover { transform: translateY(-10px); }
+        .featured-card:hover { border-color: var(--secondary); }
+        .besouro-card:hover { border-color: #fc4b00; }
+
+        .featured-card { border-color: var(--secondary); box-shadow: 0 0 24px rgba(3, 218, 198, 0.12); }
+        .besouro-card { border-color: #fc4b00; box-shadow: 0 0 24px rgba(252, 75, 0, 0.10); }
+        .project-title-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 18px; margin-bottom: 10px; }
+        .project-title-row h3 { margin: 0; }
+        .featured-label { align-self: center; background: rgba(3, 218, 198, 0.12); color: var(--secondary); border: 1px solid rgba(3, 218, 198, 0.45); padding: 4px 10px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; }
+
+        .project-description { margin-top: 0; margin-bottom: 18px; }
+        .project-meta-group { margin-bottom: 0; }
+        .project-meta { margin: 4px 0; line-height: 1.35; color: var(--text-secondary); }
+        .itch-card { width: 552px; max-width: 100%; height: 167px; display: flex; margin-top: 12px; overflow: hidden; border: 1px solid; text-decoration: none; box-sizing: border-box; }
+        .itch-thumb { width: 206px; flex: 0 0 206px; display: flex; align-items: center; justify-content: center; border-right: 1px solid currentColor; box-sizing: border-box; }
+        .card .itch-thumb img { width: 180px; height: 143px; aspect-ratio: auto; object-fit: cover; object-position: center; border-radius: 0; margin: 0; background: transparent; transform: translateX(1.5px); }
+        .itch-card-content { position: relative; flex: 1; padding: 20px 14px; min-width: 0; }
+        .itch-card h4 { margin: 0 0 2px; font-size: 1.65rem; line-height: 1.1; }
+        .itch-card p { margin: 0 0 4px; font-size: 0.78rem; line-height: 1.35; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .itch-button { display: inline-block; margin-top: 10px; padding: 9px 12px; border-radius: 3px; color: #fff; font-weight: 700; font-size: 0.9rem; }
+        .itch-logo { position: absolute; right: 8px; bottom: 4px; opacity: 0.35; font-weight: 800; font-size: 1.05rem; }
+        .itch-misinput { background: #07002b; border-color: #24006a; color: #7ac8f0; }
+        .itch-misinput .itch-thumb { color: #24006a; }
+        .itch-misinput .itch-button { background: #15b3e6; }
+        .itch-besouro { background: #e7cf42; border-color: #fc4b00; color: #b54c00; }
+        .itch-besouro .itch-thumb { color: #fc4b00; }
+        .itch-besouro .itch-button { background: #fc4b00; }
+        .project-year { margin: -8px 0 18px; color: var(--text-secondary); font-size: 0.9rem; font-weight: 700; }
+
+
+        .card img {
+			width: 100%;
+			aspect-ratio: 16 / 9; /* Mantém a proporção real do ecrã do jogo */
+			object-fit: cover; /* Preenche a caixa sem distorcer */
+			object-position: center; /* Garante que o foco fica no centro da imagem */
+			border-radius: 5px;
+			margin-bottom: 15px;
+			background: #252525;
+		}
+
+        .badge {
+            background: var(--primary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: #000;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: opacity 0.3s;
+        }
+
+        .contact-btn:hover { opacity: 0.8; }
+
+        .link-social { color: var(--secondary); text-decoration: none; font-weight: bold; }
+        .link-social:hover { text-decoration: underline; }
+
+        footer { text-align: center; padding: 40px; color: var(--text-secondary); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <div class="lang-switch" aria-label="Selecionar idioma">
+        <button class="lang-btn active" type="button" data-lang-btn="pt" aria-label="Português">🇧🇷</button>
+        <button class="lang-btn" type="button" data-lang-btn="en" aria-label="English">🇺🇸</button>
+    </div>
+
+    <header>
+        <h1>Victor Sales Marques</h1>
+        <p class="subtitle" data-i18n="subtitle">Estudante de Desenvolvimento de Jogos | Unity & C#</p>
+        <a href="#projetos" class="contact-btn" data-i18n="viewProjects">Ver Projetos</a>
+    </header>
+
+    <div class="container">
+        <section id="sobre">
+            <h2 data-i18n="aboutTitle">Sobre Mim</h2>
+            <p><span data-i18n="aboutText">Sou estudante de Programação de Jogos Digitais no Senac Lapa Tito, com foco em Unity, C#, game design, UI e level design. Tenho experiência em projetos em equipe, criação de protótipos jogáveis e desenvolvimento de jogos publicados no itch.io. Busco uma oportunidade de estágio para evoluir como desenvolvedor e contribuir em projetos reais.</span></p>
+        </section>
+
+        <section id="skills">
+            <h2 data-i18n="skillsTitle">Habilidades Técnicas</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3 data-i18n="enginesTitle">Engines & Linguagens</h3>
+                    <div>
+                        <span class="badge">Unity</span>
+                        <span class="badge">C#</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 data-i18n="toolsTitle">Design & Ferramentas</h3>
+                    <div>
+                        <span class="badge">Blender (3D)</span>
+                        <span class="badge">Pixel Art</span>
+                        <span class="badge" data-i18n="logicBadge">Lógica de Programação</span>
+                        <span class="badge">Git / GitHub</span>
+                        <span class="badge">Game Design Doc</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projetos">
+            <h2 data-i18n="projectsTitle">Meus Projetos (Portfólio)</h2>
+            <div class="grid">
+                <div class="card featured-card">
+                    <img src="https://i.imgur.com/5CnaWZN.gif" alt="Misinput Gameplay">
+                    <div class="project-title-row">
+                        <h3>Misinput</h3>
+                        <span class="featured-label" data-i18n="inDevelopment">Em desenvolvimento</span>
+                    </div>
+                    <p class="project-year">2026</p>
+                    <p class="project-description"><span data-i18n="misinputDescription">Roguelite topdown isométrico 3D criado em equipe para o Cria Senac 2026. Trabalhei no game design, programação e UI, desenvolvendo sistemas de combate, progressão e interface com foco no sistema de melhorias "buffs" durante as batalhas.</span></p>
+                    <div class="project-meta-group">
+                        <p class="project-meta"><small><b data-i18n="roleLabel">Cargo:</b> <span data-i18n="misinputRole">Game Designer, Programador e UI</span></small></p>
+                        <p class="project-meta"><small><b data-i18n="productionTimeLabel">Tempo de produção:</b> <span data-i18n="threeMonths">3 meses</span></small></p>
+                        <p class="project-meta"><small><b data-i18n="teamSizeLabel">Tamanho de equipe:</b> <span data-i18n="threePeople">3 pessoas</span></small></p>
+                        <p class="project-meta"><small><b data-i18n="versionedLabel">Versionado com Unity Version Control / Plastic SCM</b> </small></p>
+                    </div>
+                    <a class="itch-card itch-misinput" href="https://singrax.itch.io/misinput" target="_blank" aria-label="Ver Misinput no itch.io">
+                        <div class="itch-thumb">
+                            <img src="https://img.itch.zone/aW1nLzI2OTY0MDc4LnBuZw==/180x143%23c/cgUdie.png" srcset="https://img.itch.zone/aW1nLzI2OTY0MDc4LnBuZw==/360x286%23c/PH7XeR.png 2x" alt="Capa do Misinput">
+                        </div>
+                        <div class="itch-card-content">
+                            <h4>Misinput</h4>
+                            <p data-i18n="bySingrax">por Singrax</p>
+                            <p data-i18n="misinputItchText">Reprograme almas perdidas e dê a elas um novo propósito.</p>
+                            <span class="itch-button" data-i18n="itchButton">Ver no itch.io</span>
+                            <span class="itch-logo">itch.io</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card besouro-card">
+                    <img src="https://img.itch.zone/aW1nLzI0Mjc3MzM1LnBuZw==/original/MgPpNU.png" alt="Besouro Jones Gameplay">
+                    <div class="project-title-row">
+                        <h3>Besouro Jones</h3>
+                    </div>
+                    <p class="project-year">2025</p>
+                    <p class="project-description"><span data-i18n="besouroDescription">Plataforma 2D inspirado nos clássicos do gênero, criado como primeiro projeto em equipe. Trabalhei na programação de mecânicas, áudio e level design, com foco em controles simples, fases legíveis e ritmo de jogo divertido.</span></p>
+                    <div class="project-meta-group">
+                        <p class="project-meta"><small><b data-i18n="roleLabel">Cargo:</b> <span data-i18n="besouroRole">Programação, Mecânicas, Áudio e Level Design</span></small></p>
+                        <p class="project-meta"><small><b data-i18n="productionTimeLabel">Tempo de produção:</b> <span data-i18n="twoMonths">2 meses</span></small></p>
+                        <p class="project-meta"><small><b data-i18n="teamSizeLabel">Tamanho de equipe:</b> <span data-i18n="threePeople">3 pessoas</span></small></p>
+                        <p class="project-meta"><small><b data-i18n="versionedLabel">Versionado com Unity Version Control / Plastic SCM</b> </small></p>
+                    </div>
+                    <a class="itch-card itch-besouro" href="https://siulwolf.itch.io/besourojones" target="_blank" aria-label="Ver Besouro Jones no itch.io">
+                        <div class="itch-thumb">
+                            <img src="https://img.itch.zone/aW1nLzI0MTUzNTI1LnBuZw==/180x143%23c/y87rVY.png" srcset="https://img.itch.zone/aW1nLzI0MTUzNTI1LnBuZw==/360x286%23c/vxNYFK.png 2x" alt="Capa do Besouro Jones">
+                        </div>
+                        <div class="itch-card-content">
+                            <h4>Besouro Jones</h4>
+                            <p data-i18n="bySiulWolf">por SiulWolf</p>
+                            <p data-i18n="besouroItchText">Uma jornada de fantasia e aventura de um besouro que...</p>
+                            <span class="itch-button" data-i18n="itchButton">Ver no itch.io</span>
+                            <span class="itch-logo">itch.io</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contato">
+            <h2 data-i18n="contactTitle">Contato</h2>
+            <p data-i18n="contactText">Estou aberto a parcerias e oportunidades de estágio!</p>
+            <p>📧 Email: <a href="mailto:singraxsm@gmail.com" class="link-social">singraxsm@gmail.com</a></p>
+            <p>📱 WhatsApp: <a href="tel:+5511945795018" class="link-social">+55 11 94579-5018</a></p>
+            <p>🔗 LinkedIn: <a href="https://linkedin.com/in/victor-sales-marques-33119131b/" target="_blank" class="link-social"><span data-i18n="linkedinText">Meu Perfil Profissional</span></a></p>
+            <a href="https://wa.me/5511945795018" target="_blank" class="contact-btn"><span data-i18n="whatsappButton">Enviar mensagem no WhatsApp</span></a>
+        </section>
+    </div>
+
+    <footer>
+        &copy; 2026 - <span data-i18n="footerText">Desenvolvido por Victor Sales Marques - Aluno Senac Lapa Tito</span>
+    </footer>
+
+
+    <script>
+        const translations = {
+            pt: {
+                pageTitle: 'Portfólio | Victor Sales Marques',
+                subtitle: 'Estudante de Desenvolvimento de Jogos | Unity & C#',
+                viewProjects: 'Ver Projetos',
+                aboutTitle: 'Sobre Mim',
+                aboutText: 'Sou estudante de Programação de Jogos Digitais no Senac Lapa Tito, com foco em Unity, C#, game design, UI e level design. Tenho experiência em projetos em equipe, criação de protótipos jogáveis e desenvolvimento de jogos publicados no itch.io. Busco uma oportunidade de estágio para evoluir como desenvolvedor e contribuir em projetos reais.',
+                skillsTitle: 'Habilidades Técnicas',
+                enginesTitle: 'Engines & Linguagens',
+                toolsTitle: 'Design & Ferramentas',
+                logicBadge: 'Lógica de Programação',
+                projectsTitle: 'Meus Projetos (Portfólio)',
+                inDevelopment: 'Em desenvolvimento',
+                misinputDescription: 'Roguelite topdown isométrico 3D criado em equipe para o Cria Senac 2026. Trabalhei no game design, programação e UI, desenvolvendo sistemas de combate, progressão e interface com foco no sistema de melhorias "buffs" durante as batalhas.',
+                besouroDescription: 'Plataforma 2D inspirado nos clássicos do gênero, criado como primeiro projeto em equipe. Trabalhei na programação de mecânicas, áudio e level design, com foco em controles simples, fases legíveis e ritmo de jogo divertido.',
+                roleLabel: 'Cargo:',
+                productionTimeLabel: 'Tempo de produção:',
+                teamSizeLabel: 'Tamanho de equipe:',
+                versionedLabel: 'Versionado com Unity Version Control / Plastic SCM',
+                misinputRole: 'Game Designer, Programador e UI',
+                besouroRole: 'Programação, Mecânicas, Áudio e Level Design',
+                threeMonths: '3 meses',
+                twoMonths: '2 meses',
+                threePeople: '3 pessoas',
+                bySingrax: 'por Singrax',
+                bySiulWolf: 'por SiulWolf',
+                misinputItchText: 'Reprograme almas perdidas e dê a elas um novo propósito.',
+                besouroItchText: 'Uma jornada de fantasia e aventura de um besouro que...',
+                itchButton: 'Ver no itch.io',
+                contactTitle: 'Contato',
+                contactText: 'Estou aberto a parcerias e oportunidades de estágio!',
+                linkedinText: 'Meu Perfil Profissional',
+                whatsappButton: 'Enviar mensagem no WhatsApp',
+                footerText: 'Desenvolvido por Victor Sales Marques - Aluno Senac Lapa Tito'
+            },
+            en: {
+                pageTitle: 'Portfolio | Victor Sales Marques',
+                subtitle: 'Game Development Student | Unity & C#',
+                viewProjects: 'View Projects',
+                aboutTitle: 'About Me',
+                aboutText: 'I am a Digital Game Programming student at Senac Lapa Tito, focused on Unity, C#, game design, UI, and level design. I have experience with team projects, playable prototypes, and games published on itch.io. I am looking for an internship opportunity to grow as a developer and contribute to real projects.',
+                skillsTitle: 'Technical Skills',
+                enginesTitle: 'Engines & Languages',
+                toolsTitle: 'Design & Tools',
+                logicBadge: 'Programming Logic',
+                projectsTitle: 'My Projects (Portfolio)',
+                inDevelopment: 'In development',
+                misinputDescription: 'A 3D isometric topdown roguelite created with a team for Cria Senac 2026. I worked on game design, programming, and UI, developing combat, progression, and interface systems focused on the in-battle buff upgrade system.',
+                besouroDescription: 'A 2D platformer inspired by genre classics, created as my first team project. I worked on gameplay programming, mechanics, audio, and level design, focusing on simple controls, readable stages, and a fun game rhythm.',
+                roleLabel: 'Role:',
+                productionTimeLabel: 'Production time:',
+                teamSizeLabel: 'Team size:',
+                versionedLabel: 'Versioned with Unity Version Control / Plastic SCM',
+                misinputRole: 'Game Designer, Programmer, and UI',
+                besouroRole: 'Programming, Mechanics, Audio, and Level Design',
+                threeMonths: '3 months',
+                twoMonths: '2 months',
+                threePeople: '3 people',
+                bySingrax: 'by Singrax',
+                bySiulWolf: 'by SiulWolf',
+                misinputItchText: 'Reprogram lost souls and give them a new purpose.',
+                besouroItchText: 'A fantasy adventure about a beetle searching for...',
+                itchButton: 'View on itch.io',
+                contactTitle: 'Contact',
+                contactText: 'I am open to partnerships and internship opportunities!',
+                linkedinText: 'My Professional Profile',
+                whatsappButton: 'Send a WhatsApp message',
+                footerText: 'Developed by Victor Sales Marques - Senac Lapa Tito Student'
+            }
+        };
+
+        function setLanguage(lang) {
+            const dictionary = translations[lang];
+            document.documentElement.lang = lang === 'pt' ? 'pt-br' : 'en';
+            document.title = dictionary.pageTitle;
+
+            document.querySelectorAll('[data-i18n]').forEach((element) => {
+                const key = element.dataset.i18n;
+                if (dictionary[key]) element.textContent = dictionary[key];
+            });
+
+            document.querySelectorAll('[data-lang-btn]').forEach((button) => {
+                button.classList.toggle('active', button.dataset.langBtn === lang);
+            });
+        }
+
+        document.querySelectorAll('[data-lang-btn]').forEach((button) => {
+            button.addEventListener('click', () => setLanguage(button.dataset.langBtn));
+        });
+
+        const browserLanguage = navigator.language || navigator.userLanguage || '';
+        const initialLanguage = browserLanguage.toLowerCase().startsWith('pt') ? 'pt' : 'en';
+        setLanguage(initialLanguage);
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
